@@ -81,6 +81,13 @@ const addNewRow = (board: number[][], numbers: number[]): number[][] => {
   return newBoard;
 };
 
+const checkForAllMatches = (board: number[][]) => {
+  let newBoard = _.cloneDeep(board);
+  newBoard = checkForMatchesHorizontal(newBoard);
+  newBoard = matrixArray(checkForMatchesHorizontal(matrixArray(newBoard)));
+  return newBoard;
+};
+
 const Board = () => {
   const [board, setBoard] = useState(createBoard(BOARD_SIZE, NUMBERS));
   const [selectedTie, setSelectedTie] = useState<HTMLDivElement | null>(null);
@@ -88,10 +95,7 @@ const Board = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      setBoard(prev =>
-        // matrixArray(checkForMatchesHorizontal(matrixArray(prev)))
-        checkForMatchesHorizontal(prev)
-      );
+      setBoard(prev => checkForAllMatches(prev));
     }, 1000);
   }, []);
 
