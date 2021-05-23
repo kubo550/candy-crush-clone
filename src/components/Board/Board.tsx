@@ -39,15 +39,17 @@ const checkForMatchesHorizontal = (board: number[][]): number[][] => {
 
     // TODO error
 
-    for (let j = 1; j < boardSize; j++) {
+    for (let j = 1; j < boardSize + 1; j++) {
       if (row[j] === queue[0]) {
         queue.push(row[j]);
       } else {
+        // todo the same code
         if (queue.length >= 3) {
           for (let index = 1; index <= queue.length; index++) {
             row[j - index] = 0;
           }
         }
+
         queue = [row[j]];
       }
     }
