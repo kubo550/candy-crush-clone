@@ -13,13 +13,14 @@ import * as S from "./Board.style";
 const BOARD_SIZE = 10;
 // const COLORS = ["green", "orange", "red", "blue", "purple", "yellow"];
 
-const NUMBERS = [1, 2, 3, 4];
+const NUMBERS = [1, 2, 3, 4, 5];
 
 const colorTransform = new Map([
   [1, "red"],
   [2, "blue"],
   [3, "green"],
   [4, "yellow"],
+  [5, "purple"],
 ]);
 
 type Tile = {
@@ -29,27 +30,31 @@ type Tile = {
 
 const Board = () => {
   const [board, setBoard] = useState(createBoard(BOARD_SIZE, NUMBERS));
-  const [prevBoard, setprevBoard] = useState(board);
   const [selectedTie, setSelectedTie] = useState<HTMLDivElement | null>(null);
-  const [isUpdatingBoard, setIsUpdatingBoard] = useState(false);
+  const [isPlayable, setIsPLayable] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
       if (hasEmptyTiles(board)) {
         setBoard(prevBoard => addNewRow(getValuesDown(prevBoard), NUMBERS));
+        setIsPLayable(true);
+
         return;
       }
-      if (!isUpdatingBoard && !_.isEqual(board, checkForAllMatches(board))) {
+      if (!isPlayable && !_.isEqual(board, checkForAllMatches(board))) {
         setBoard(prev => checkForAllMatches(prev));
       } else {
         setBoard(getValuesDown);
-        setIsUpdatingBoard(true);
       }
+    }, 500);
 
-      if (_.isEqual(board, getValuesDown(board))) {
-        setIsUpdatingBoard(false);
-      }
-    }, 1000);
+    if (
+      !_.isEqual(board, getValuesDown(board)) ||
+      !_.isEqual(board, checkForAllMatches(board))
+    ) {
+      setIsPLayable(false);
+    }
+    console.log(isPlayable);
   }, [board]);
 
   useEffect(() => {
@@ -87,6 +92,7 @@ const Board = () => {
 
   return (
     <div>
+      {isPlayable ? "Make a move" : "Combo"}
       <S.Wrapper>
         {board.map((row, y) =>
           row.map((tile, x) => (
