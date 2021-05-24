@@ -4,7 +4,7 @@ Popular game written in react with typescrip
 
 ## Tech Stack
 
-todo
+![TypeScript](https://img.shields.io/badge/-TypeScript-05122A?style=flat&logo=typescript)&nbsp;
 
 ## Preview
 
