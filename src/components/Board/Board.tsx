@@ -26,7 +26,6 @@ const colorTransform = new Map([
 type TilePos = {
   x: number;
   y: number;
-  id: number;
 };
 
 const Board = () => {
@@ -67,11 +66,13 @@ const Board = () => {
     setFirstDraggedDiv({
       x: e.screenX,
       y: e.screenY,
-      id,
     });
   };
 
-  const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDragEnd = (
+    e: React.DragEvent<HTMLDivElement>,
+    tilePos: TilePos
+  ) => {
     if (!isPlayable || !firstDraggedDiv) {
       return;
     }
@@ -88,11 +89,25 @@ const Board = () => {
       };
     };
 
+    const calculateNewPosition = (
+      tilePos: TilePos,
+      direction: TilePos
+    ): TilePos => {
+      const x = tilePos.x + direction.x;
+      const y = tilePos.y + direction.y;
+
+      // TODO check for valid moves here
+
+      return { x, y };
+    };
+
     const offsetX = e.screenX - firstDraggedDiv.x;
     const offsetY = e.screenY - firstDraggedDiv.y;
 
     const direction = calculateDirection(offsetX, offsetY);
-    console.log(direction);
+    const newPosition = calculateNewPosition(tilePos, direction);
+
+    console.log(tilePos, newPosition);
 
     setFirstDraggedDiv(null);
   };
@@ -109,7 +124,7 @@ const Board = () => {
               style={{ backgroundColor: colorTransform.get(tile)! }}
               draggable
               onDragStart={handleDragStart}
-              onDragEnd={handleDragEnd}
+              onDragEnd={e => handleDragEnd(e, { y, x })}
             >
               {/* <Candy primaryColor={tile.primaryColor} secondaryColor='#74dce2' /> */}
               {tile}
