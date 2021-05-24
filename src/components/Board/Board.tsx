@@ -23,15 +23,16 @@ const colorTransform = new Map([
   [5, "purple"],
 ]);
 
-type Tile = {
-  primaryColor: string;
-  idx: number;
+type TilePos = {
+  x: number;
+  y: number;
+  id: number;
 };
 
 const Board = () => {
   const [board, setBoard] = useState(createBoard(BOARD_SIZE, NUMBERS));
-  const [selectedTie, setSelectedTie] = useState<HTMLDivElement | null>(null);
   const [isPlayable, setIsPLayable] = useState(true);
+  const [firstDraggedDiv, setFirstDraggedDiv] = useState<TilePos | null>(null);
 
   useEffect(() => {
     setTimeout(() => {
@@ -54,40 +55,46 @@ const Board = () => {
     ) {
       setIsPLayable(false);
     }
-    console.log(isPlayable);
   }, [board]);
 
-  useEffect(() => {
-    if (selectedTie?.id) {
-      selectedTie.classList.add("active");
-
-      document.addEventListener("keydown", handleKeyDown);
-      return () => document.removeEventListener("keydown", handleKeyDown);
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+    if (!isPlayable) {
+      return;
     }
-  }, [selectedTie]);
 
-  const handleKeyDown = (e: KeyboardEvent) => {
-    const id = Number(selectedTie?.id);
-    // const sourceColor = selectedTie?.style.backgroundColor;
-    // let destinationColor: string;
-    // let destinationId: number;
-    // console.log(sourceColor);
+    const id = Number((e.target as HTMLDivElement).id);
 
-    // if (e.key === "ArrowLeft") {
-    //   destinationId = id - 1;
-    //   destinationColor = board[destinationId].primaryColor;
-    //   const newBoard = [...board];
-    //   const [removedTile] = newBoard.splice(id, 1);
-    //   newBoard.splice(destinationId, 0, removedTile);
-    //   setBoard(newBoard);
-    // } else if (e.key === "ArrowRight") {
-    //   console.log(id + 1);
-    // }
+    setFirstDraggedDiv({
+      x: e.screenX,
+      y: e.screenY,
+      id,
+    });
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    setSelectedTie(e.target as HTMLDivElement);
-    const id = (e.target as HTMLDivElement).id;
+  const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
+    if (!isPlayable || !firstDraggedDiv) {
+      return;
+    }
+
+    const calculateDirection = (offsetX: number, offsetY: number) => {
+      const isHorizontal = Math.abs(offsetX) > Math.abs(offsetY);
+
+      const x = offsetX > 0 ? 1 : -1;
+      const y = offsetY > 0 ? 1 : -1;
+
+      return {
+        x: 0 + (isHorizontal ? x : 0),
+        y: 0 + (!isHorizontal ? y : 0),
+      };
+    };
+
+    const offsetX = e.screenX - firstDraggedDiv.x;
+    const offsetY = e.screenY - firstDraggedDiv.y;
+
+    const direction = calculateDirection(offsetX, offsetY);
+    console.log(direction);
+
+    setFirstDraggedDiv(null);
   };
 
   return (
@@ -98,9 +105,11 @@ const Board = () => {
           row.map((tile, x) => (
             <S.Cell
               key={`${x}${y}`}
-              onClick={handleClick}
               id={`${x}${y}`}
               style={{ backgroundColor: colorTransform.get(tile)! }}
+              draggable
+              onDragStart={handleDragStart}
+              onDragEnd={handleDragEnd}
             >
               {/* <Candy primaryColor={tile.primaryColor} secondaryColor='#74dce2' /> */}
               {tile}
