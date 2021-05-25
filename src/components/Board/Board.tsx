@@ -108,7 +108,6 @@ const Board = () => {
     };
 
     const isValidMove = (pos: TilePos): boolean => {
-      // todo
       return true;
     };
 
