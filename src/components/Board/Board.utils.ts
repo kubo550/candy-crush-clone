@@ -76,10 +76,10 @@ export const checkForAllMatches = (board: number[][]) => {
 
 // 
 
-const toggleTiles = (
+const toggleArray = (
     board: number[][],
     tilePos: { x: number; y: number },
-    nextTileIndex: -1 | 1
+    nextTileIndex: -1 | 0 | 1
 ) => {
     const newBoard = _.cloneDeep(board);
     const { x, y } = tilePos;
@@ -102,26 +102,31 @@ const toggle = {
     hotizontal: (
         board: number[][],
         tilePos: { x: number; y: number },
-        nextTileIndex: 1 | -1
-    ) => toggleTiles(board, tilePos, nextTileIndex),
+        nextTileIndex: 1 | 0 | -1
+    ) => toggleArray(board, tilePos, nextTileIndex),
     vertical: (
         board: number[][],
         tilePos: { x: number; y: number },
-        nextTileIndex: 1 | -1
+        nextTileIndex: 1 | 0 | -1
     ) =>
         matrixArray(
-            toggleTiles(matrixArray(board), reverseCoords(tilePos), nextTileIndex)
+            toggleArray(matrixArray(board), reverseCoords(tilePos), nextTileIndex)
         )
 };
 
-export const swipeBoard = (
+export const swipeTiles = (
     board: number[][],
     tilePos: { x: number; y: number },
-    nextTileIndex: 1 | -1,
-    isHorizontal: boolean
-): number[][] =>
-    toggle[isHorizontal ? "hotizontal" : "vertical"](
+    dir: { x: 1 | -1 | 0; y: 1 | -1 | 0 }
+): number[][] => {
+
+    const isHorizontal = dir.x !== 0
+
+    const nextTileIndex = isHorizontal ? dir.x : dir.y
+
+    return toggle[isHorizontal ? "hotizontal" : "vertical"](
         board,
         tilePos,
         nextTileIndex
     );
+}
