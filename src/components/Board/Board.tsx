@@ -12,9 +12,8 @@ import * as S from "./Board.style";
 // import Candy from "../Candy/Candy";
 
 const BOARD_SIZE = 10;
-// const COLORS = ["green", "orange", "red", "blue", "purple", "yellow"];
 
-const NUMBERS = [1, 2, 3, 4, 5];
+const NUMBERS = [1, 2, 3, 4, 5, 6];
 
 const colorTransform = new Map([
   [1, "red"],
@@ -22,6 +21,7 @@ const colorTransform = new Map([
   [3, "green"],
   [4, "yellow"],
   [5, "purple"],
+  [6, "orange"],
 ]);
 
 type TilePos = {
@@ -68,6 +68,11 @@ const Board = () => {
     });
   };
 
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.dataTransfer.effectAllowed = "copyMove";
+  };
+
   const handleDragEnd = (
     e: React.DragEvent<HTMLDivElement>,
     tilePos: TilePos
@@ -75,6 +80,8 @@ const Board = () => {
     if (!isPlayable || !firstDraggedDiv) {
       return;
     }
+
+    e.dataTransfer.effectAllowed = "copy";
 
     const calculateDirection = (
       offsetX: number,
@@ -139,6 +146,7 @@ const Board = () => {
               style={{ backgroundColor: colorTransform.get(tile)! }}
               draggable
               onDragStart={handleDragStart}
+              onDragOver={handleDragOver}
               onDragEnd={e => handleDragEnd(e, { y, x })}
             >
               {/* <Candy primaryColor={tile.primaryColor} secondaryColor='#74dce2' /> */}
