@@ -91,3 +91,8 @@ const toggleTiles = (
 
     return newBoard;
 };
+
+const reverseCoords = (pos: { x: number; y: number }) => ({
+    y: pos.x,
+    x: pos.y
+});
