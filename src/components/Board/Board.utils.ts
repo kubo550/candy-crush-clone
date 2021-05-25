@@ -113,3 +113,15 @@ const toggle = {
             toggleTiles(matrixArray(board), reverseCoords(tilePos), nextTileIndex)
         )
 };
+
+export const swipeBoard = (
+    board: number[][],
+    tilePos: { x: number; y: number },
+    nextTileIndex: 1 | -1,
+    isHorizontal: boolean
+): number[][] =>
+    toggle[isHorizontal ? "hotizontal" : "vertical"](
+        board,
+        tilePos,
+        nextTileIndex
+    );
