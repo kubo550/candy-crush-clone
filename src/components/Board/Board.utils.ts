@@ -73,3 +73,21 @@ export const checkForAllMatches = (board: number[][]) => {
     newBoard = matrixArray(checkForMatchesHorizontal(matrixArray(newBoard)));
     return newBoard;
 };
+
+// 
+
+const toggleTiles = (
+    board: number[][],
+    tilePos: { x: number; y: number },
+    nextTileIndex: -1 | 1
+) => {
+    const newBoard = _.cloneDeep(board);
+    const { x, y } = tilePos;
+
+    [newBoard[y][x], newBoard[y][x + nextTileIndex]] = [
+        newBoard[y][x + nextTileIndex],
+        newBoard[y][x]
+    ];
+
+    return newBoard;
+};
