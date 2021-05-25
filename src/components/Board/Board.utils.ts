@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-export const matrixArray = (board: number[][]) =>
+const matrixArray = (board: number[][]) =>
     board[0].map((_, colIdx) => board.map(row => row[colIdx]));
 
 export const createBoard = (size: number, numbers: number[]): number[][] => {
