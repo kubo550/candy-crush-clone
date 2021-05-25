@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import {
-  addNewRow,
-  checkForAllMatches,
   createBoard,
-  getValuesDown,
+  checkForAllMatches,
   hasEmptyTiles,
+  addNewRow,
+  getValuesDown,
+  swipeTiles,
 } from "./Board.utils";
 import _ from "lodash";
 import * as S from "./Board.style";
@@ -61,8 +62,6 @@ const Board = () => {
       return;
     }
 
-    const id = Number((e.target as HTMLDivElement).id);
-
     setFirstDraggedDiv({
       x: e.screenX,
       y: e.screenY,
@@ -77,7 +76,13 @@ const Board = () => {
       return;
     }
 
-    const calculateDirection = (offsetX: number, offsetY: number) => {
+    const calculateDirection = (
+      offsetX: number,
+      offsetY: number
+    ): {
+      x: -1 | 0 | 1;
+      y: -1 | 0 | 1;
+    } => {
       const isHorizontal = Math.abs(offsetX) > Math.abs(offsetY);
 
       const x = offsetX > 0 ? 1 : -1;
@@ -86,6 +91,9 @@ const Board = () => {
       return {
         x: 0 + (isHorizontal ? x : 0),
         y: 0 + (!isHorizontal ? y : 0),
+      } as {
+        x: -1 | 0 | 1;
+        y: -1 | 0 | 1;
       };
     };
 
@@ -96,9 +104,12 @@ const Board = () => {
       const x = tilePos.x + direction.x;
       const y = tilePos.y + direction.y;
 
-      // TODO check for valid moves here
-
       return { x, y };
+    };
+
+    const isValidMove = (pos: TilePos): boolean => {
+      // todo
+      return true;
     };
 
     const offsetX = e.screenX - firstDraggedDiv.x;
@@ -107,7 +118,11 @@ const Board = () => {
     const direction = calculateDirection(offsetX, offsetY);
     const newPosition = calculateNewPosition(tilePos, direction);
 
-    console.log(tilePos, newPosition);
+    if (!isValidMove(newPosition)) {
+      return;
+    }
+
+    setBoard(board => swipeTiles(board, tilePos, direction));
 
     setFirstDraggedDiv(null);
   };
