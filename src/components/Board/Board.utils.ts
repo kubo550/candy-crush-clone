@@ -96,3 +96,20 @@ const reverseCoords = (pos: { x: number; y: number }) => ({
     y: pos.x,
     x: pos.y
 });
+
+
+const toggle = {
+    hotizontal: (
+        board: number[][],
+        tilePos: { x: number; y: number },
+        nextTileIndex: 1 | -1
+    ) => toggleTiles(board, tilePos, nextTileIndex),
+    vertical: (
+        board: number[][],
+        tilePos: { x: number; y: number },
+        nextTileIndex: 1 | -1
+    ) =>
+        matrixArray(
+            toggleTiles(matrixArray(board), reverseCoords(tilePos), nextTileIndex)
+        )
+};
