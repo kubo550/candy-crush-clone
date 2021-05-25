@@ -107,8 +107,9 @@ const Board = () => {
       return { x, y };
     };
 
-    const isValidMove = (pos: TilePos): boolean => {
-      return true;
+    const isValidMove = (newPos: TilePos, boardSize: number): boolean => {
+      const coords = Object.values(newPos);
+      return coords.every(coord => coord >= 0 && coord <= boardSize - 1);
     };
 
     const offsetX = e.screenX - firstDraggedDiv.x;
@@ -117,7 +118,7 @@ const Board = () => {
     const direction = calculateDirection(offsetX, offsetY);
     const newPosition = calculateNewPosition(tilePos, direction);
 
-    if (!isValidMove(newPosition)) {
+    if (!isValidMove(newPosition, BOARD_SIZE)) {
       return;
     }
 
