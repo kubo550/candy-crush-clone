@@ -6,7 +6,6 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
@@ -16,7 +15,7 @@
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "styled-components": "^5.3.0",
-    "typescript": "^4.1.2",
+    "ts-node": "^10.0.0",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -44,9 +43,14 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/jest": "^26.0.23",
     "@types/lodash": "^4.14.170",
     "@types/react-beautiful-dnd": "^13.0.0",
     "@types/styled-components": "^5.1.9",
-    "sass": "^1.34.0"
+    "jest-playwright-preset": "^1.5.2",
+    "sass": "^1.34.0",
+    "ts-jest": "^27.0.0",
+    "typescript": "^4.3.2"
   }
 }
