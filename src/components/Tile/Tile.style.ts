@@ -1,8 +1,8 @@
 import styled from "styled-components";
-
 interface CellProps {
     playable: boolean
 }
+
 
 export const Cell = styled.div<CellProps>`
     width: 60px;

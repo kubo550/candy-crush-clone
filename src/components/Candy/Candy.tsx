@@ -3,16 +3,21 @@
 interface CandyProps {
   primaryColor: string;
   secondaryColor: string;
+  size?: string;
 }
 
-const Candy: React.FC<CandyProps> = ({ primaryColor, secondaryColor }) => {
+const Candy: React.FC<CandyProps> = ({
+  primaryColor,
+  secondaryColor,
+  size,
+}) => {
   return (
     <svg
       id='Capa_1'
       enableBackground='new 0 0 512.018 512.018'
-      height='50'
+      height={size ? size : "50"}
       viewBox='0 0 512.018 512.018'
-      width='50'
+      width={size ? size : "50"}
       xmlns='http://www.w3.org/2000/svg'
     >
       <g>

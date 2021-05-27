@@ -22,6 +22,7 @@ const Tile: FC<TileProps> = ({
 }) => {
   const { primaryColor, secondaryColor } = candyColors[tile];
 
+  //
   return (
     <S.Cell
       draggable
