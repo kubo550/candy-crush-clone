@@ -36,6 +36,7 @@ const GameInfoBoard: FC<GameInfoBoardProps> = ({
     <S.Wrapper>
       <p>moves: {moves}</p>
       <p>time: {displayTime(time)}</p>
+
       {tileToSearch?.primaryColor && (
         <p>
           to go:{" "}
