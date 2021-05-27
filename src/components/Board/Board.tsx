@@ -10,15 +10,14 @@ import {
   calculateNewPosition,
   isValidMove,
 } from "./Board.utils";
-import candyColors from "../../data/candyColors";
 import _ from "lodash";
 import * as S from "./Board.style";
 import { TilePos } from "./Board.types";
-import Candy from "../Candy/Candy";
+import Tile from "../Tile/Tile";
 
 const BOARD_SIZE = 10;
-
 const NUMBERS = [1, 2, 3, 4, 5];
+const TILE_SPEED_MS = 300;
 
 const Board = () => {
   const [board, setBoard] = useState(createBoard(BOARD_SIZE, NUMBERS));
@@ -38,7 +37,7 @@ const Board = () => {
       } else {
         setBoard(getValuesDown);
       }
-    }, 500);
+    }, TILE_SPEED_MS);
 
     if (
       !_.isEqual(board, getValuesDown(board)) ||
@@ -93,26 +92,17 @@ const Board = () => {
       {isPlayable ? "Make a move" : "Combo"}
       <S.Wrapper>
         {board.map((row, y) =>
-          row.map((tile, x) => {
-            const { primaryColor, secondaryColor } = candyColors[tile];
-
-            return (
-              <S.Cell
-                key={`${x}${y}`}
-                id={`${x}${y}`}
-                onDragStart={handleDragStart}
-                onDragOver={handleDragOver}
-                onDragEnd={e => handleDragEnd(e, { y, x })}
-                draggable
-              >
-                {tile ? (
-                  <Candy primaryColor={primaryColor} secondaryColor='#74dce2' />
-                ) : (
-                  ""
-                )}
-              </S.Cell>
-            );
-          })
+          row.map((tile, x) => (
+            <Tile
+              key={`${x}${y}`}
+              id={`${x}${y}`}
+              dragStart={handleDragStart}
+              dragOver={handleDragOver}
+              dragEnd={e => handleDragEnd(e, { y, x })}
+              tile={tile}
+              isPlayable={isPlayable}
+            />
+          ))
         )}
       </S.Wrapper>
     </div>
