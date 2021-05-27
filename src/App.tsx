@@ -9,7 +9,7 @@ import GameOver from "./components/GameOver/GameOver";
 const BOARD_SIZE = 10;
 const NUMBERS = [1, 2, 3, 4, 5];
 const MAX_MOVES = 15;
-const NUM_TILES_TO_GO = 5;
+const NUM_TILES_TO_GO = 35;
 
 const App = () => {
   const initalBoard = createBoard(BOARD_SIZE, NUMBERS);
