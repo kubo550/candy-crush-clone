@@ -19,7 +19,7 @@ export const createBoard = (size: number, numbers: number[]): number[][] => {
     return board
 };
 
-const checkForMatchesHorizontal = (board: number[][]): number[][] => {
+const checkForMatchesHorizontal = (board: number[][], subsTilesToGo?: (id: number, quan: number) => void): number[][] => {
     const tiles = _.cloneDeep(board);
     const boardSize = tiles.length;
 
@@ -39,9 +39,8 @@ const checkForMatchesHorizontal = (board: number[][]): number[][] => {
                         row[j - index] = 0;
 
                     }
+                    subsTilesToGo && subsTilesToGo(queue[0], queue.length)
                 }
-
-
                 queue = [row[j]];
             }
         }
@@ -73,10 +72,10 @@ export const addNewRow = (board: number[][], numbers: number[]): number[][] => {
     return newBoard;
 };
 
-export const checkForAllMatches = (board: number[][]): number[][] => {
+export const checkForAllMatches = (board: number[][], subsTilesToGo?: (id: number, quan: number) => void): number[][] => {
     let newBoard = _.cloneDeep(board);
-    newBoard = checkForMatchesHorizontal(newBoard);
-    newBoard = matrixArray(checkForMatchesHorizontal(matrixArray(newBoard)));
+    newBoard = checkForMatchesHorizontal(newBoard, subsTilesToGo);
+    newBoard = matrixArray(checkForMatchesHorizontal(matrixArray(newBoard), subsTilesToGo));
     return newBoard;
 };
 
