@@ -82,7 +82,17 @@ const Board = () => {
       return;
     }
 
-    setBoard(board => swipeTiles(board, tilePos, direction));
+    const boardBeforeMove = _.cloneDeep(board);
+    const boardAfterMove = swipeTiles(board, tilePos, direction);
+    setBoard(boardAfterMove);
+
+    if (_.isEqual(boardAfterMove, checkForAllMatches(boardAfterMove))) {
+      setIsPLayable(false);
+      setTimeout(() => {
+        setBoard(boardBeforeMove);
+        setIsPLayable(true);
+      }, TILE_SPEED_MS);
+    }
 
     setFirstDraggedDiv(null);
   };
@@ -94,8 +104,8 @@ const Board = () => {
         {board.map((row, y) =>
           row.map((tile, x) => (
             <Tile
-              key={`${x}${y}`}
-              id={`${x}${y}`}
+              key={`${y}${x}`}
+              id={`${y}${x}`}
               dragStart={handleDragStart}
               dragOver={handleDragOver}
               dragEnd={e => handleDragEnd(e, { y, x })}
