@@ -5,16 +5,21 @@ export const matrixArray = (board: number[][]): number[][] =>
     board[0].map((_, colIdx) => board.map(row => row[colIdx]));
 
 export const createBoard = (size: number, numbers: number[]): number[][] => {
-    return Array(size)
+    const make2dArray = (size: number) => Array(size)
         .fill(null)
         .map(() =>
             Array(size)
                 .fill(0)
                 .map(() => _.sample(numbers)!)
         );
+    let board = make2dArray(size)
+    while (!_.isEqual(board, checkForAllMatches(board))) {
+        board = make2dArray(size)
+    }
+    return board
 };
 
-export const checkForMatchesHorizontal = (board: number[][]): number[][] => {
+const checkForMatchesHorizontal = (board: number[][]): number[][] => {
     const tiles = _.cloneDeep(board);
     const boardSize = tiles.length;
 
@@ -32,8 +37,10 @@ export const checkForMatchesHorizontal = (board: number[][]): number[][] => {
                 if (queue.length >= 3) {
                     for (let index = 1; index <= queue.length; index++) {
                         row[j - index] = 0;
+
                     }
                 }
+
 
                 queue = [row[j]];
             }
@@ -135,8 +142,12 @@ export const swipeTiles = (
 export const calculateDirection = (
     offsetX: number,
     offsetY: number
-): NextIndexes => {
+): NextIndexes | null => {
     const isHorizontal = Math.abs(offsetX) > Math.abs(offsetY);
+    const OFFSET_TO_MAKE_MOVE = 20
+    if (Math.abs(offsetX) < OFFSET_TO_MAKE_MOVE && Math.abs(offsetY) < OFFSET_TO_MAKE_MOVE) {
+        return null
+    }
 
     const x = offsetX > 0 ? 1 : -1;
     const y = offsetY > 0 ? 1 : -1;

@@ -15,11 +15,16 @@ import * as S from "./Board.style";
 import { TilePos } from "./Board.types";
 import Tile from "../Tile/Tile";
 
-const BOARD_SIZE = 10;
+const BOARD_SIZE = 8;
 const NUMBERS = [1, 2, 3, 4, 5];
 const TILE_SPEED_MS = 300;
 
-const Board = () => {
+interface BoardProps {
+  move: () => void;
+  subsTilesToGo: (id: number, quan: number) => void;
+}
+
+const Board: React.FC<BoardProps> = ({ move, subsTilesToGo }) => {
   const [board, setBoard] = useState(createBoard(BOARD_SIZE, NUMBERS));
   const [isPlayable, setIsPLayable] = useState(true);
   const [firstDraggedDiv, setFirstDraggedDiv] = useState<TilePos | null>(null);
@@ -33,7 +38,7 @@ const Board = () => {
         return () => clearInterval(timeoutId);
       }
       if (!isPlayable && !_.isEqual(board, checkForAllMatches(board))) {
-        setBoard(prev => checkForAllMatches(prev));
+        setBoard(checkForAllMatches);
       } else {
         setBoard(getValuesDown);
       }
@@ -46,7 +51,7 @@ const Board = () => {
       setIsPLayable(false);
     }
     return () => clearInterval(timeoutId);
-  }, [board]);
+  }, [board, isPlayable]);
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     if (!isPlayable) {
@@ -76,6 +81,11 @@ const Board = () => {
     const offsetY = e.screenY - firstDraggedDiv.y;
 
     const direction = calculateDirection(offsetX, offsetY);
+
+    if (!direction) {
+      return;
+    }
+
     const newPosition = calculateNewPosition(tilePos, direction);
 
     if (!isValidMove(newPosition, BOARD_SIZE)) {
@@ -91,7 +101,9 @@ const Board = () => {
       setTimeout(() => {
         setBoard(boardBeforeMove);
         setIsPLayable(true);
-      }, TILE_SPEED_MS);
+      }, TILE_SPEED_MS * 2);
+    } else {
+      move();
     }
 
     setFirstDraggedDiv(null);
@@ -100,7 +112,7 @@ const Board = () => {
   return (
     <div>
       {isPlayable ? "Make a move" : "Combo"}
-      <S.Wrapper>
+      <S.Wrapper size={BOARD_SIZE}>
         {board.map((row, y) =>
           row.map((tile, x) => (
             <Tile

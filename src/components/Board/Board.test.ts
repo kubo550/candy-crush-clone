@@ -3,7 +3,7 @@ import { createBoard, matrixArray, hasEmptyTiles, getValuesDown, addNewRow, chec
 describe("2dBoardOperations", () => {
 
     // ^ matrixArray 
-    xtest("matrixSimpleArr", () => {
+    test("matrixSimpleArr", () => {
         const input = [
             [1, 2],
             [3, 4],
@@ -18,7 +18,7 @@ describe("2dBoardOperations", () => {
         expect(result).toEqual(expected);
     });
 
-    xtest("matrixBigArray", () => {
+    test("matrixBigArray", () => {
         const input = [
             [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
             [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
@@ -50,21 +50,9 @@ describe("2dBoardOperations", () => {
     });
 
     // ^ createBoard 
-    xtest('Generates propertly', () => {
-        const avaiableValues = [1]
-        const boardSize = 4
-        const board = createBoard(boardSize, avaiableValues)
-        const result = [
-            [1, 1, 1, 1],
-            [1, 1, 1, 1],
-            [1, 1, 1, 1],
-            [1, 1, 1, 1],
-        ]
-        expect(board).toEqual(result)
-    })
 
-    xtest('create randomize Board', () => {
-        const avaiableValues = [1, 2, 3, 4]
+    test('create randomize Board', () => {
+        const avaiableValues = [1, 2, 3, 4, 5, 6]
         const boardSize = 6
 
         const res1 = createBoard(boardSize, avaiableValues)
@@ -75,7 +63,7 @@ describe("2dBoardOperations", () => {
 
     // ^ hasEmptyTiles
 
-    xtest('hasEmptyTiles without zeroes', () => {
+    test('hasEmptyTiles without zeroes', () => {
         const board = [
             [4, 1, 2, 1],
             [1, 2, 1, 4],
@@ -86,7 +74,7 @@ describe("2dBoardOperations", () => {
         expect(result).toBe(false);
     });
 
-    xtest('hasEmptyTiles with zeroes', () => {
+    test('hasEmptyTiles with zeroes', () => {
         const board = [
             [4, 0, 0, 0, 1, 1],
             [1, 2, 1, 0, 5, 4],
@@ -101,7 +89,7 @@ describe("2dBoardOperations", () => {
 
     // ^ getValuesDown
 
-    xtest('values 3 times', () => {
+    test('values 3 times', () => {
         let board = [
             [1, 2, 3, 4],
             [1, 2, 3, 4],
@@ -123,7 +111,7 @@ describe("2dBoardOperations", () => {
     })
 
 
-    xtest('values get down', () => {
+    test('values get down', () => {
         const board = [
             [4, 1, 2, 1],
             [0, 0, 0, 0],
@@ -140,7 +128,7 @@ describe("2dBoardOperations", () => {
         expect(result).toEqual(expected);
     })
 
-    xtest('get values down harder arr', () => {
+    test('get values down harder arr', () => {
         const board = [
             [1, 2, 3, 4, 5, 6],
             [0, 0, 0, 0, 0, 0],
@@ -165,7 +153,7 @@ describe("2dBoardOperations", () => {
 
     // ^ addNewRow
 
-    xtest('addNewRow', () => {
+    test('addNewRow', () => {
         const avaiableValues = [1]
         let board = [
             [0, 0, 0, 0],
@@ -184,7 +172,7 @@ describe("2dBoardOperations", () => {
         expect(board).toEqual(expected);
     })
 
-    xtest('adding new values ', () => {
+    test('adding new values ', () => {
         const avaiableValues = [1, 2, 3, 4]
         let board = [
             [0, 0, 0, 0],
@@ -203,7 +191,7 @@ describe("2dBoardOperations", () => {
 
     // ^ checkForAllMatches
 
-    xtest('check For All Horizontal Matches ', () => {
+    test('check For All Horizontal Matches ', () => {
         let board = [
             [1, 1, 1],
             [2, 3, 1],
@@ -222,7 +210,7 @@ describe("2dBoardOperations", () => {
 
     })
 
-    xtest('check For All Vertical Matches ', () => {
+    test('check For All Vertical Matches ', () => {
         let board = [
             [1, 1, 4],
             [1, 3, 4],
@@ -241,7 +229,7 @@ describe("2dBoardOperations", () => {
 
     })
 
-    xtest('check For All Matches ', () => {
+    test('check For All Matches ', () => {
         let board = [
             [1, 1, 1, 3, 5],
             [2, 4, 3, 3, 5],
