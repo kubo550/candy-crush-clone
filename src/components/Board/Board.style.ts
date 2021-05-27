@@ -5,11 +5,12 @@ interface WrapperProps {
 }
 
 export const Wrapper = styled.div<WrapperProps>`
-    width: ${({ size }) => size * 60 + 'px'};
-    height: ${({ size }) => size * 60 + 'px'};
-    display: flex;
-    flex-wrap: wrap;
+    width: 600px;
+    height: 600px;
+    display: grid;
+    grid-template: repeat(${({ size }) => size}, 1fr) /  repeat(${({ size }) => size}, 1fr);
     background-color: aliceblue;
+    position: relative;
     
 `
 
