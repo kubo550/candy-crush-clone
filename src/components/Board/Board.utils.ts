@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { NextIndexes, TilePos } from "./Board.types";
 
-const matrixArray = (board: number[][]): number[][] =>
+export const matrixArray = (board: number[][]): number[][] =>
     board[0].map((_, colIdx) => board.map(row => row[colIdx]));
 
 export const createBoard = (size: number, numbers: number[]): number[][] => {
