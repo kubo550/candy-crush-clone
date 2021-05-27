@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/candy-crush-clone/static/css/main.4a2d6574.chunk.css",
-    "main.js": "/candy-crush-clone/static/js/main.8ae6fda8.chunk.js",
-    "main.js.map": "/candy-crush-clone/static/js/main.8ae6fda8.chunk.js.map",
+    "main.js": "/candy-crush-clone/static/js/main.0b8ab8e3.chunk.js",
+    "main.js.map": "/candy-crush-clone/static/js/main.0b8ab8e3.chunk.js.map",
     "runtime-main.js": "/candy-crush-clone/static/js/runtime-main.c428abad.js",
     "runtime-main.js.map": "/candy-crush-clone/static/js/runtime-main.c428abad.js.map",
     "static/js/2.332ff4eb.chunk.js": "/candy-crush-clone/static/js/2.332ff4eb.chunk.js",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.c428abad.js",
     "static/js/2.332ff4eb.chunk.js",
     "static/css/main.4a2d6574.chunk.css",
-    "static/js/main.8ae6fda8.chunk.js"
+    "static/js/main.0b8ab8e3.chunk.js"
   ]
 }
