@@ -1,4 +1,4 @@
-import { createBoard, matrixArray, hasEmptyTiles, getValuesDown, addNewRow } from "./Board.utils";
+import { createBoard, matrixArray, hasEmptyTiles, getValuesDown, addNewRow, checkForAllMatches } from "./Board.utils";
 
 describe("2dBoardOperations", () => {
 
@@ -199,6 +199,67 @@ describe("2dBoardOperations", () => {
         board = addNewRow(board, avaiableValues);
         expect(board[0]).not.toEqual(notExpected);
 
+    })
+
+    // ^ checkForAllMatches
+
+    xtest('check For All Horizontal Matches ', () => {
+        let board = [
+            [1, 1, 1],
+            [2, 3, 1],
+            [2, 2, 2],
+        ]
+
+        const expected = [
+            [0, 0, 0],
+            [2, 3, 1],
+            [0, 0, 0],
+        ]
+
+        board = checkForAllMatches(board)
+
+        expect(board).toEqual(expected);
+
+    })
+
+    xtest('check For All Vertical Matches ', () => {
+        let board = [
+            [1, 1, 4],
+            [1, 3, 4],
+            [1, 4, 4],
+        ]
+
+        const expected = [
+            [0, 1, 0],
+            [0, 3, 0],
+            [0, 4, 0],
+        ]
+
+        board = checkForAllMatches(board)
+
+        expect(board).toEqual(expected);
+
+    })
+
+    xtest('check For All Matches ', () => {
+        let board = [
+            [1, 1, 1, 3, 5],
+            [2, 4, 3, 3, 5],
+            [2, 3, 6, 6, 5],
+            [2, 2, 1, 3, 5],
+            [2, 3, 3, 3, 5],
+        ];
+        const expected = [
+            [0, 0, 0, 3, 0],
+            [0, 4, 3, 3, 0],
+            [0, 3, 6, 6, 0],
+            [0, 2, 1, 3, 0],
+            [0, 0, 0, 0, 0],
+        ];
+
+        board = checkForAllMatches(board);
+
+        expect(board).toEqual(expected)
     })
 
 
