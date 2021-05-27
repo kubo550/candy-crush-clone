@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import {
-  createBoard,
   checkForAllMatches,
   hasEmptyTiles,
   addNewRow,
@@ -15,30 +14,40 @@ import * as S from "./Board.style";
 import { TilePos } from "./Board.types";
 import Tile from "../Tile/Tile";
 
-const BOARD_SIZE = 8;
-const NUMBERS = [1, 2, 3, 4, 5];
 const TILE_SPEED_MS = 300;
 
 interface BoardProps {
   move: () => void;
   subsTilesToGo: (id: number, quan: number) => void;
+  isPlayable: boolean;
+  setIsPlayable: Dispatch<React.SetStateAction<boolean>>;
+  board: number[][];
+  setBoard: Dispatch<React.SetStateAction<number[][]>>;
+  numbers: number[];
 }
 
-const Board: React.FC<BoardProps> = ({ move, subsTilesToGo }) => {
-  const [board, setBoard] = useState(createBoard(BOARD_SIZE, NUMBERS));
-  const [isPlayable, setIsPLayable] = useState(true);
+const Board: React.FC<BoardProps> = ({
+  move,
+  subsTilesToGo,
+  isPlayable,
+  setIsPlayable,
+  board,
+  setBoard,
+  numbers,
+}) => {
   const [firstDraggedDiv, setFirstDraggedDiv] = useState<TilePos | null>(null);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (hasEmptyTiles(board)) {
-        setBoard(prevBoard => addNewRow(getValuesDown(prevBoard), NUMBERS));
-        setIsPLayable(true);
+        setBoard(prevBoard => addNewRow(getValuesDown(prevBoard), numbers));
+        setIsPlayable(true);
 
         return () => clearInterval(timeoutId);
       }
       if (!isPlayable && !_.isEqual(board, checkForAllMatches(board))) {
-        setBoard(checkForAllMatches);
+        const newBoard = checkForAllMatches(board, subsTilesToGo);
+        setBoard(newBoard);
       } else {
         setBoard(getValuesDown);
       }
@@ -48,7 +57,7 @@ const Board: React.FC<BoardProps> = ({ move, subsTilesToGo }) => {
       !_.isEqual(board, getValuesDown(board)) ||
       !_.isEqual(board, checkForAllMatches(board))
     ) {
-      setIsPLayable(false);
+      setIsPlayable(false);
     }
     return () => clearInterval(timeoutId);
   }, [board, isPlayable]);
@@ -88,7 +97,7 @@ const Board: React.FC<BoardProps> = ({ move, subsTilesToGo }) => {
 
     const newPosition = calculateNewPosition(tilePos, direction);
 
-    if (!isValidMove(newPosition, BOARD_SIZE)) {
+    if (!isValidMove(newPosition, board.length)) {
       return;
     }
 
@@ -97,10 +106,10 @@ const Board: React.FC<BoardProps> = ({ move, subsTilesToGo }) => {
     setBoard(boardAfterMove);
 
     if (_.isEqual(boardAfterMove, checkForAllMatches(boardAfterMove))) {
-      setIsPLayable(false);
+      setIsPlayable(false);
       setTimeout(() => {
         setBoard(boardBeforeMove);
-        setIsPLayable(true);
+        setIsPlayable(true);
       }, TILE_SPEED_MS * 2);
     } else {
       move();
@@ -112,7 +121,7 @@ const Board: React.FC<BoardProps> = ({ move, subsTilesToGo }) => {
   return (
     <div>
       {isPlayable ? "Make a move" : "Combo"}
-      <S.Wrapper size={BOARD_SIZE}>
+      <S.Wrapper size={board.length}>
         {board.map((row, y) =>
           row.map((tile, x) => (
             <Tile
