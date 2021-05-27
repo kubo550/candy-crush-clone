@@ -1,4 +1,4 @@
-import { createBoard, matrixArray, hasEmptyTiles, getValuesDown } from "./Board.utils";
+import { createBoard, matrixArray, hasEmptyTiles, getValuesDown, addNewRow } from "./Board.utils";
 
 describe("2dBoardOperations", () => {
 
@@ -163,6 +163,46 @@ describe("2dBoardOperations", () => {
         expect(result).toEqual(expected);
     })
 
+    // ^ addNewRow
 
-});
+    xtest('addNewRow', () => {
+        const avaiableValues = [1]
+        let board = [
+            [0, 0, 0, 0],
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+        ]
+        const expected = [
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+        ]
+
+        board = addNewRow(board, avaiableValues);
+        expect(board).toEqual(expected);
+    })
+
+    xtest('adding new values ', () => {
+        const avaiableValues = [1, 2, 3, 4]
+        let board = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+        ]
+        const notExpected = [
+            [0, 0, 0, 0],
+        ]
+
+        board = addNewRow(board, avaiableValues);
+        expect(board[0]).not.toEqual(notExpected);
+
+    })
+
+
+})
+
+
 
