@@ -1,21 +1,20 @@
 {
   "files": {
-    "main.css": "/candy-crush-clone/static/css/main.4a2d6574.chunk.css",
-    "main.js": "/candy-crush-clone/static/js/main.0b8ab8e3.chunk.js",
-    "main.js.map": "/candy-crush-clone/static/js/main.0b8ab8e3.chunk.js.map",
+    "main.css": "/candy-crush-clone/static/css/main.caa61bec.chunk.css",
+    "main.js": "/candy-crush-clone/static/js/main.84be948b.chunk.js",
+    "main.js.map": "/candy-crush-clone/static/js/main.84be948b.chunk.js.map",
     "runtime-main.js": "/candy-crush-clone/static/js/runtime-main.c428abad.js",
     "runtime-main.js.map": "/candy-crush-clone/static/js/runtime-main.c428abad.js.map",
     "static/js/2.332ff4eb.chunk.js": "/candy-crush-clone/static/js/2.332ff4eb.chunk.js",
     "static/js/2.332ff4eb.chunk.js.map": "/candy-crush-clone/static/js/2.332ff4eb.chunk.js.map",
     "index.html": "/candy-crush-clone/index.html",
-    "static/css/main.4a2d6574.chunk.css.map": "/candy-crush-clone/static/css/main.4a2d6574.chunk.css.map",
-    "static/js/2.332ff4eb.chunk.js.LICENSE.txt": "/candy-crush-clone/static/js/2.332ff4eb.chunk.js.LICENSE.txt",
-    "static/media/index.scss": "/candy-crush-clone/static/media/wood-bg.c4d32bba.jpg"
+    "static/css/main.caa61bec.chunk.css.map": "/candy-crush-clone/static/css/main.caa61bec.chunk.css.map",
+    "static/js/2.332ff4eb.chunk.js.LICENSE.txt": "/candy-crush-clone/static/js/2.332ff4eb.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.c428abad.js",
     "static/js/2.332ff4eb.chunk.js",
-    "static/css/main.4a2d6574.chunk.css",
-    "static/js/main.0b8ab8e3.chunk.js"
+    "static/css/main.caa61bec.chunk.css",
+    "static/js/main.84be948b.chunk.js"
   ]
 }
