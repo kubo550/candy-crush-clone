@@ -20,23 +20,16 @@ const Tile: FC<TileProps> = ({
   id,
   isPlayable,
 }) => {
-  const { primaryColor, secondaryColor } = candyColors[tile];
-
-  //
   return (
     <S.Cell
-      draggable
+      draggable={isPlayable}
       onDragStart={dragStart}
       onDragOver={dragOver}
       onDragEnd={dragEnd}
       id={id}
       playable={isPlayable}
     >
-      {tile ? (
-        <Candy primaryColor={primaryColor} secondaryColor='#74dce2' />
-      ) : (
-        ""
-      )}
+      {tile ? <Candy colors={candyColors[tile]} /> : ""}
     </S.Cell>
   );
 };
