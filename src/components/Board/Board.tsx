@@ -60,7 +60,7 @@ const Board: React.FC<BoardProps> = ({
       setIsPlayable(false);
     }
     return () => clearInterval(timeoutId);
-  }, [board, isPlayable]);
+  }, [board, isPlayable, numbers, setBoard, setIsPlayable, subsTilesToGo]);
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     if (!isPlayable) {
@@ -120,7 +120,6 @@ const Board: React.FC<BoardProps> = ({
 
   return (
     <div>
-      {isPlayable ? "Make a move" : "Combo"}
       <S.Wrapper size={board.length}>
         {board.map((row, y) =>
           row.map((tile, x) => (

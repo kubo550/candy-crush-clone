@@ -37,15 +37,10 @@ const GameInfoBoard: FC<GameInfoBoardProps> = ({
       <p>moves: {moves}</p>
       <p>time: {displayTime(time)}</p>
 
-      {tileToSearch?.primaryColor && (
+      {tileToSearch?.tileId && (
         <p>
-          to go:{" "}
-          <Candy
-            primaryColor={tileToSearch.primaryColor}
-            secondaryColor='black'
-            size='20'
-          />
-          x {tilesToGo}
+          to go: <Candy colors={tileToSearch} size='30' />
+          <span className='lover'>x</span> {tilesToGo}
         </p>
       )}
     </S.Wrapper>
