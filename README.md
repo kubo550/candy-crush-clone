@@ -11,7 +11,7 @@ Popular game written in react with typescrip
 
 ## Preview
 
-todo
+![preview](https://raw.githubusercontent.com/kubo550/candy-crush-clone/master/candy-prev.png)
 
 
 
