@@ -8,10 +8,11 @@ Popular game written in react with typescrip
 ![React](https://img.shields.io/badge/-React-05122A?style=flat&logo=react)&nbsp;
 ![Styled Components](https://img.shields.io/badge/-styled_components-05122A?style=flat&logo=styled-components)&nbsp;
 ![SCSS](https://img.shields.io/badge/-SCSS-05122A?style=flat&logo=SASS)&nbsp;
+![Jest](https://img.shields.io/badge/-jest-05122A?style=flat&logo=jest)&nbsp;
 
 ## Preview
 
-todo
+![preview](https://raw.githubusercontent.com/kubo550/candy-crush-clone/master/candy-prev.png)
 
 
 
