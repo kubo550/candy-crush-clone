@@ -1,4 +1,5 @@
-import { createBoard, matrixArray, hasEmptyTiles, getValuesDown, addNewRow, checkForAllMatches, calculateDirection, isValidMove } from "./Board.utils";
+import { NextIndexes } from "./Board.types";
+import { createBoard, matrixArray, hasEmptyTiles, getValuesDown, addNewRow, checkForAllMatches, calculateDirection, isValidMove, swipeTiles } from "./Board.utils";
 
 describe("2dBoardOperations", () => {
 
@@ -314,6 +315,40 @@ describe("2dBoardOperations", () => {
         const result = isValidMove(newPos, boardSize)
 
         expect(result).toBeFalsy()
+    })
+
+
+    // ^ swipeTiles
+
+    test('Swipping Tiles in board', () => {
+        const board = [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+            [13, 14, 15, 16],
+        ]
+
+        const pos = {
+            x: 1,
+            y: 1,
+        };
+
+        const dir = {
+            x: 0,
+            y: 1
+        } as NextIndexes
+
+
+        const result = swipeTiles(board, pos, dir);
+
+        const expected = [
+            [1, 2, 3, 4],
+            [5, 10, 7, 8],
+            [9, 6, 11, 12],
+            [13, 14, 15, 16],
+        ]
+
+        expect(result).toEqual(expected)
     })
 
 
