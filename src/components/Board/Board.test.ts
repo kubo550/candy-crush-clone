@@ -1,4 +1,4 @@
-import { createBoard, matrixArray, hasEmptyTiles, getValuesDown, addNewRow, checkForAllMatches, calculateDirection } from "./Board.utils";
+import { createBoard, matrixArray, hasEmptyTiles, getValuesDown, addNewRow, checkForAllMatches, calculateDirection, isValidMove } from "./Board.utils";
 
 describe("2dBoardOperations", () => {
 
@@ -284,12 +284,37 @@ describe("2dBoardOperations", () => {
         const offsetX = 10;
         const offsetY = -10;
 
-        const expected = null
 
         const result = calculateDirection(offsetX, offsetY);
-        expect(result).toBe(expected)
+        expect(result).toBeNull()
     })
 
+    // ^ isValidMove
+    xtest('Valid move', () => {
+        const newPos = {
+            x: 5,
+            y: 0
+        };
+
+        const boardSize = 8
+
+        const result = isValidMove(newPos, boardSize)
+
+        expect(result).toBeTruthy()
+    })
+
+    xtest('Invalid move', () => {
+        const newPos = {
+            x: 10,
+            y: 6
+        };
+
+        const boardSize = 9
+
+        const result = isValidMove(newPos, boardSize)
+
+        expect(result).toBeFalsy()
+    })
 
 
 })
