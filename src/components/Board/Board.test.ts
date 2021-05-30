@@ -1,4 +1,4 @@
-import { createBoard, matrixArray, hasEmptyTiles, getValuesDown, addNewRow, checkForAllMatches } from "./Board.utils";
+import { createBoard, matrixArray, hasEmptyTiles, getValuesDown, addNewRow, checkForAllMatches, calculateDirection } from "./Board.utils";
 
 describe("2dBoardOperations", () => {
 
@@ -249,6 +249,47 @@ describe("2dBoardOperations", () => {
 
         expect(board).toEqual(expected)
     })
+
+
+    // ^ calculateDirection
+    xtest('Calculate Direction', () => {
+        const offsetX = 20;
+        const offsetY = -50;
+
+        const expected = {
+            x: 0,
+            y: -1
+        }
+
+        const result = calculateDirection(offsetX, offsetY);
+        expect(result).toEqual(expected)
+    })
+
+    xtest('Calculate Direction with highter offset X', () => {
+        const offsetX = 200;
+        const offsetY = -32;
+
+        const expected = {
+            x: 1,
+            y: 0
+        }
+
+        const result = calculateDirection(offsetX, offsetY);
+        expect(result).toEqual(expected)
+    })
+
+
+
+    xtest('Calculate Direction with too short offsets', () => {
+        const offsetX = 10;
+        const offsetY = -10;
+
+        const expected = null
+
+        const result = calculateDirection(offsetX, offsetY);
+        expect(result).toBe(expected)
+    })
+
 
 
 })
