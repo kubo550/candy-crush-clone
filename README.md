@@ -12,7 +12,7 @@ Popular game written in react with typescrip
 
 ## Preview
 
-Play online on github-pages [here](https://kubo550.github.io/candy-crush-clone/)
+Play online on github-pages [https://kubo550.github.io/candy-crush-clone](https://kubo550.github.io/candy-crush-clone/)
 
 ![preview](https://github.com/kubo550/candy-crush-clone/blob/master/candy-preview.png?raw=true)
 
