@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from "react";
 import * as S from "./GameInfoBoard.styles";
-import Candy from "../Candy/Candy";
 import { displayTime } from "./GameInfoBoard.utils";
 import { CandyData } from "../../data/candyColors";
+import { candies } from "../../assets";
 
 interface GameInfoBoardProps {
   moves: number;
@@ -39,7 +39,12 @@ const GameInfoBoard: FC<GameInfoBoardProps> = ({
 
       {tileToSearch?.tileId && (
         <p>
-          to go: <Candy colors={tileToSearch} size='30' />
+          to go:{" "}
+          <img
+            src={candies[tileToSearch.tileId]}
+            width='30'
+            alt='Tile to search'
+          />
           <span className='lover'>x</span> {tilesToGo}
         </p>
       )}

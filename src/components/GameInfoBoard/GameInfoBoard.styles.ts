@@ -24,7 +24,7 @@ export const Wrapper = styled.div`
 
         }
 
-        svg {
+        img {
             transform: translateY(7px) ;
             margin-right: 5px;
         }

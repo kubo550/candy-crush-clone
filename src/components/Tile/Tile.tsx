@@ -1,7 +1,6 @@
 import { FC } from "react";
-import Candy from "../Candy/Candy";
-import candyColors from "../../data/candyColors";
 import * as S from "./Tile.style";
+import { candies } from "../../assets";
 
 interface TileProps {
   dragStart: (e: React.DragEvent<HTMLDivElement>) => void;
@@ -29,7 +28,7 @@ const Tile: FC<TileProps> = ({
       id={id}
       playable={isPlayable}
     >
-      {tile ? <Candy colors={candyColors[tile]} /> : ""}
+      {tile ? <img width='50' src={candies[tile]} alt='' /> : null}
     </S.Cell>
   );
 };
