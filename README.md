@@ -12,6 +12,8 @@ Popular game written in react with typescrip
 
 ## Preview
 
+Play online on github-pages [here](https://kubo550.github.io/candy-crush-clone/)
+
 ![preview](https://raw.githubusercontent.com/kubo550/candy-crush-clone/master/candy-prev.png)
 
 
